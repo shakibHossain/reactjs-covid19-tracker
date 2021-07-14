@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
-import CustomSelect from "./components/custom-select/custom-select.component";
-import "./App.css";
 import InfoBox from "./components/info-box/info-box.component";
+
+import "./App.css";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -36,13 +38,29 @@ function App() {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <Paper className="app__paper">
-            <h4>Covid 19 Tracker</h4>
+            <p>Covid 19 Tracker</p>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className="app__paper">
-            <CustomSelect countries={countries} />
-          </Paper>
+          {/* Select dropdown */}
+          <Autocomplete
+            id="country-select"
+            options={countries}
+            autoHighlight
+            defaultValue={"Canada"}
+            renderOption={(option) => <React.Fragment>{option}</React.Fragment>}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Choose a country"
+                variant="outlined"
+                inputProps={{
+                  ...params.inputProps,
+                  autoComplete: "new-password", // disable autocomplete and autofill
+                }}
+              />
+            )}
+          />
         </Grid>
         <Grid item xs={12} sm={4}>
           <InfoBox />
