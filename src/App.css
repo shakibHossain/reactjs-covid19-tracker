@@ -1,0 +1,27 @@
+.app {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+}
+
+.app__header {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.app__title {
+  display: flex;
+  flex-grow: 2;
+}
+
+.app__select {
+  display: flex;
+  flex-grow: 1;
+}
+
+.app__paper {
+  padding: 16px;
+  text-align: center;
+  color: grey;
+}
