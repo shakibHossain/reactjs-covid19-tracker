@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 
 import CustomSelect from "./components/custom-select/custom-select.component";
 import "./App.css";
+import InfoBox from "./components/info-box/info-box.component";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -44,13 +45,13 @@ function App() {
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Paper className="app__paper">Cases</Paper>
+          <InfoBox />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Paper className="app__paper">Recoveries</Paper>
+          <InfoBox />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Paper className="app__paper">Deaths</Paper>
+          <InfoBox />
         </Grid>
 
         <Grid item xs={12} sm={6}>
