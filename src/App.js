@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
-import "./App.css";
-import { Select } from "@material-ui/core";
 import CustomSelect from "./components/custom-select/custom-select.component";
+import "./App.css";
 
 function App() {
+  const [countries, setCountries] = useState([]);
+
+  /**
+   * On page load, fetch all countries from API
+   * and populate select field
+   */
+  useEffect(() => {
+    const getCountries = async () => {
+      await fetch("https://disease.sh/v3/covid-19/countries")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          const arrayOfCountries = [];
+          // Add "Worldwide" option separately
+          arrayOfCountries.push("Worldwide");
+          data.forEach((element) => {
+            arrayOfCountries.push(element.country);
+          });
+          setCountries(arrayOfCountries);
+        });
+    };
+    getCountries();
+  }, []);
+
   return (
     <div className="app">
       <Grid container spacing={3}>
@@ -17,7 +40,7 @@ function App() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className="app__paper">
-            <CustomSelect />
+            <CustomSelect countries={countries} />
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4}>
