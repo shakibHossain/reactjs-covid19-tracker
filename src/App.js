@@ -10,6 +10,24 @@ import "./App.css";
 
 function App() {
   const [countries, setCountries] = useState([]);
+  const [infoBoxData, setInfoBoxData] = useState([]);
+
+  /**
+   * Round numbers to make it readable
+   * @param {*} labelValue
+   */
+  const roundFriendly = (labelValue) => {
+    // Nine Zeroes for Billions
+    return Math.abs(Number(labelValue)) >= 1.0e9
+      ? (Math.abs(Number(labelValue)) / 1.0e9).toFixed(1) + "B"
+      : // Six Zeroes for Millions
+      Math.abs(Number(labelValue)) >= 1.0e6
+      ? (Math.abs(Number(labelValue)) / 1.0e6).toFixed(1) + "M"
+      : // Three Zeroes for Thousands
+      Math.abs(Number(labelValue)) >= 1.0e3
+      ? (Math.abs(Number(labelValue)) / 1.0e3).toFixed(1) + "K"
+      : Math.abs(Number(labelValue));
+  };
 
   /**
    * On page load, fetch all countries from API
@@ -31,7 +49,25 @@ function App() {
         });
     };
     getCountries();
+    onCountryChange("Worldwide");
   }, []);
+
+  const onCountryChange = async (countryValue) => {
+    if (countryValue !== null) {
+      let url = "";
+      if (countryValue === "Worldwide") {
+        url = "https://disease.sh/v3/covid-19/all";
+      } else {
+        url = `https://disease.sh/v3/covid-19/countries/${countryValue}?yesterday=true`;
+      }
+
+      await fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          setInfoBoxData(data);
+        });
+    }
+  };
 
   return (
     <div className="app">
@@ -47,8 +83,9 @@ function App() {
             id="country-select"
             options={countries}
             autoHighlight
-            defaultValue={"Canada"}
+            defaultValue={"Worldwide"}
             renderOption={(option) => <React.Fragment>{option}</React.Fragment>}
+            onChange={(event, value) => onCountryChange(value)}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -63,13 +100,25 @@ function App() {
           />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <InfoBox />
+          <InfoBox
+            title="Cases"
+            numbers={roundFriendly(infoBoxData.todayCases) + " New"}
+            total={roundFriendly(infoBoxData.cases) + " Total"}
+          />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <InfoBox />
+          <InfoBox
+            title="Recoveries"
+            numbers={roundFriendly(infoBoxData.todayRecovered) + " New"}
+            total={roundFriendly(infoBoxData.recovered) + " Total"}
+          />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <InfoBox />
+          <InfoBox
+            title="Deaths"
+            numbers={roundFriendly(infoBoxData.todayDeaths) + " New"}
+            total={roundFriendly(infoBoxData.deaths) + " Total"}
+          />
         </Grid>
 
         <Grid item xs={12} sm={6}>
