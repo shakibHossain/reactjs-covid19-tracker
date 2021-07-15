@@ -5,12 +5,14 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
 import InfoBox from "./components/info-box/info-box.component";
+import CustomTable from "./components/custom-table/custom-table.component";
 
 import "./App.css";
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [infoBoxData, setInfoBoxData] = useState([]);
+  const [countriesData, setCountriesData] = useState([]);
 
   /**
    * Round numbers to make it readable
@@ -38,14 +40,23 @@ function App() {
       await fetch("https://disease.sh/v3/covid-19/countries")
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           const arrayOfCountries = [];
+          const arrayofCountriesData = [];
           // Add "Worldwide" option separately
           arrayOfCountries.push("Worldwide");
           data.forEach((element) => {
             arrayOfCountries.push(element.country);
+            arrayofCountriesData.push({
+              country: element.country,
+              todayCases: element.todayCases,
+            });
+            // Sort in descending order
+            arrayofCountriesData.sort(
+              (a, b) => parseFloat(b.todayCases) - parseFloat(a.todayCases)
+            );
           });
           setCountries(arrayOfCountries);
+          setCountriesData(arrayofCountriesData);
         });
     };
     getCountries();
@@ -122,7 +133,7 @@ function App() {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Paper className="app__paper">Table</Paper>
+          <CustomTable newCases={countriesData} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className="app__paper">Map</Paper>
