@@ -6,13 +6,17 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 
 import InfoBox from "./components/info-box/info-box.component";
 import CustomTable from "./components/custom-table/custom-table.component";
+import CustomMap from "./components/custom-map/custom-map.component";
 
+import "leaflet/dist/leaflet.css";
 import "./App.css";
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [infoBoxData, setInfoBoxData] = useState([]);
   const [countriesData, setCountriesData] = useState([]);
+  const [center, setCenter] = useState({ lat: 34.8076, lng: -40.4796 });
+  const [zoom, setZoom] = useState(3);
 
   /**
    * Round numbers to make it readable
@@ -69,13 +73,20 @@ function App() {
       if (countryValue === "Worldwide") {
         url = "https://disease.sh/v3/covid-19/all";
       } else {
-        url = `https://disease.sh/v3/covid-19/countries/${countryValue}?yesterday=true`;
+        url = `https://disease.sh/v3/covid-19/countries/${countryValue}`;
       }
 
       await fetch(url)
         .then((response) => response.json())
         .then((data) => {
           setInfoBoxData(data);
+
+          if (countryValue === "Worldwide") {
+            setCenter([34.8076, -40.4796]);
+          } else {
+            setCenter([data.countryInfo.lat, data.countryInfo.long]);
+          }
+          setZoom(4);
         });
     }
   };
@@ -136,7 +147,7 @@ function App() {
           <CustomTable newCases={countriesData} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className="app__paper">Map</Paper>
+          <CustomMap center={center} zoom={zoom} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className="app__paper">Graph</Paper>
