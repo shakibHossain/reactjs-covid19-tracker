@@ -2,17 +2,32 @@ import React from "react";
 import { Circle, Popup } from "react-leaflet";
 import numeral from "numeral";
 
+const dataTypeColors = {
+  cases: {
+    hex: "#CC1034",
+    multiplier: 90,
+  },
+  recovered: {
+    hex: "#7dd71d",
+    multiplier: 100,
+  },
+  deaths: {
+    hex: "#fb4443",
+    multiplier: 200,
+  },
+};
 /**
  * Draws circles on map
  * @param {*} data -contains country information
  */
-export const showDataOnMap = (data) =>
-  data.map((elem, i) => (
+export const showDataOnMap = (data, dataType) => {
+  return data.map((elem, i) => (
     <Circle
       key={i}
       center={{ lat: elem.countryInfo.lat, lng: elem.countryInfo.long }}
-      fillColor="blue"
-      radius={1200}
+      color={dataTypeColors[dataType].hex}
+      fillColor={dataTypeColors[dataType].hex}
+      radius={Math.sqrt(elem[dataType]) * dataTypeColors[dataType].multiplier}
     >
       <Popup>
         <div className="country-container">
@@ -33,3 +48,4 @@ export const showDataOnMap = (data) =>
       </Popup>
     </Circle>
   ));
+};
