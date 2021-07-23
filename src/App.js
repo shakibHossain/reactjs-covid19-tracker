@@ -15,6 +15,7 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [infoBoxData, setInfoBoxData] = useState([]);
   const [countriesData, setCountriesData] = useState([]);
+  const [mapCountries, setMapCountries] = useState([]);
   const [center, setCenter] = useState({ lat: 34.8076, lng: -40.4796 });
   const [zoom, setZoom] = useState(3);
 
@@ -61,6 +62,7 @@ function App() {
           });
           setCountries(arrayOfCountries);
           setCountriesData(arrayofCountriesData);
+          setMapCountries(data);
         });
     };
     getCountries();
@@ -86,7 +88,7 @@ function App() {
           } else {
             setCenter([data.countryInfo.lat, data.countryInfo.long]);
           }
-          setZoom(4);
+          setZoom(13);
         });
     }
   };
@@ -147,7 +149,7 @@ function App() {
           <CustomTable newCases={countriesData} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <CustomMap center={center} zoom={zoom} />
+          <CustomMap center={center} zoom={zoom} countries={mapCountries} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className="app__paper">Graph</Paper>

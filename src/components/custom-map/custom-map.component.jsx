@@ -1,9 +1,12 @@
 import React from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { Marker, Circle, Popup } from "react-leaflet";
+
+import { showDataOnMap } from "../../utils";
 
 import "./custom-map.styles.scss";
 
-const CustomMap = ({ center, zoom }) => {
+const CustomMap = ({ center, zoom, countries }) => {
   /**
    * Component that changes map view upon coordinate change
    * @param {object} center - contains lat & long coordinates
@@ -24,6 +27,7 @@ const CustomMap = ({ center, zoom }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
+        {showDataOnMap(countries)}
       </MapContainer>
     </div>
   );
