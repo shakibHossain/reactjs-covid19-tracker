@@ -7,6 +7,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import InfoBox from "./components/info-box/info-box.component";
 import CustomTable from "./components/custom-table/custom-table.component";
 import CustomMap from "./components/custom-map/custom-map.component";
+import CustomGraph from "./components/custom-graph/custom-graph.component";
 
 import "leaflet/dist/leaflet.css";
 import "./App.css";
@@ -18,7 +19,8 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [center, setCenter] = useState({ lat: 34.8076, lng: -40.4796 });
   const [zoom, setZoom] = useState(3);
-  const [dataType, setDataType] = useState("cases");
+  const [dataType, setDataType] = useState("recovered");
+  const [country, setCountry] = useState("Worldwide");
 
   /**
    * Round numbers to make it readable
@@ -71,6 +73,8 @@ function App() {
   }, []);
 
   const onCountryChange = async (countryValue) => {
+    setCountry(countryValue);
+
     if (countryValue !== null) {
       let url = "";
       if (countryValue === "Worldwide") {
@@ -98,12 +102,13 @@ function App() {
     <div className="app">
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <Paper className="app__paper">
-            <p>Covid 19 Tracker</p>
+          <Paper className="app__paper-header">
+            <span>Covid 19 Tracker</span>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
           {/* Select dropdown */}
+          {/* <Paper className="app__paper"> */}
           <Autocomplete
             id="country-select"
             options={countries}
@@ -123,6 +128,7 @@ function App() {
               />
             )}
           />
+          {/* </Paper> */}
         </Grid>
         <Grid item xs={12} sm={4}>
           <InfoBox
@@ -147,18 +153,24 @@ function App() {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <CustomTable newCases={countriesData} />
+          <Paper className="app__paper">
+            <CustomTable newCases={countriesData} />
+          </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <CustomMap
-            center={center}
-            zoom={zoom}
-            countries={mapCountries}
-            dataType={dataType}
-          />
+          <Paper className="app__paper">
+            <CustomMap
+              center={center}
+              zoom={zoom}
+              countries={mapCountries}
+              dataType={dataType}
+            />
+          </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper className="app__paper">Graph</Paper>
+          <Paper className="app__paper">
+            <CustomGraph country={country} dataType={dataType} />
+          </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className="app__paper">News</Paper>

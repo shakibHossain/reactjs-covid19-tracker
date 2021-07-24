@@ -1,6 +1,5 @@
 import React from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import { Marker, Circle, Popup } from "react-leaflet";
 
 import { showDataOnMap } from "../../utils";
 
