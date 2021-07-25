@@ -1,6 +1,7 @@
 import React from "react";
 import { Circle, Popup } from "react-leaflet";
 import numeral from "numeral";
+import { DatasetController } from "chart.js";
 
 /**
  * Stores colors and multipliers of
@@ -66,49 +67,29 @@ export const showDataOnMap = (data, dataType) => {
  * @returns - formatted chart data
  */
 export const buildGraphData = (historicalData, dataType, country) => {
-  let casesData = [];
+  console.log("historicalData", historicalData);
+  let data = [];
   if (country === "Worldwide") {
     // Worldwide
-    if (dataType === "cases") {
-      casesData = historicalData?.cases;
-    } else if (dataType === "recovered") {
-      casesData = historicalData?.recovered;
-    } else {
-      casesData = historicalData?.deaths;
-    }
+    data = historicalData[dataType];
   } else {
     // Specific country
-    if (dataType === "cases") {
-      casesData = historicalData?.timeline?.cases;
-    } else if (dataType === "recovered") {
-      casesData = historicalData?.timeline?.recovered;
-    } else {
-      casesData = historicalData?.timeline?.deaths;
-    }
+    data = historicalData.timeline[dataType];
   }
-  if (casesData != null) {
-    const casesDataFormatted = [];
-    // Format JSON object and set date and cases values
-    for (let [key, value] of Object.entries(casesData)) {
-      casesDataFormatted.push({
-        date: key,
-        cases: value,
-      });
-    }
-
+  if (data != null) {
     let chartData = [];
     let lastDataPoint;
-    // Form data points x & y to display on chart
-    casesDataFormatted.forEach((element) => {
+
+    for (let date in data) {
       if (lastDataPoint) {
         let newDataPoint = {
-          x: element.date,
-          y: element.cases - lastDataPoint,
+          x: date,
+          y: data[date] - lastDataPoint,
         };
         chartData.push(newDataPoint);
       }
-      lastDataPoint = element.cases;
-    });
+      lastDataPoint = data[date];
+    }
     return chartData;
   }
 };

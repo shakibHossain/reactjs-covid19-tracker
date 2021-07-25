@@ -8,7 +8,7 @@ import "./custom-graph.styles.scss";
 
 const options = {
   legend: {
-    display: false,
+    display: true,
   },
   elements: {
     point: {
@@ -60,20 +60,23 @@ const CustomGraph = ({ country, dataType }) => {
     const getHistoricalData = async () => {
       if (country === "Worldwide") {
         await fetch(
-          `https://disease.sh/v3/covid-19/historical/all?lastdays=all
-          `
+          "https://disease.sh/v3/covid-19/historical/all?lastdays=180"
         )
-          .then((response) => response.json())
-          .then((data) => {
-            let graphData = buildGraphData(data, dataType, country);
+          .then((response) => {
+            return response.json();
+          })
+          .then((apiData) => {
+            let graphData = buildGraphData(apiData, dataType, country);
             setData(graphData);
           });
       } else {
         await fetch(
-          `https://disease.sh/v3/covid-19/historical/${country}?lastdays=all
+          `https://disease.sh/v3/covid-19/historical/${country}?lastdays=180
           `
         )
-          .then((response) => response.json())
+          .then((response) => {
+            return response.json();
+          })
           .then((data) => {
             let graphData = buildGraphData(data, dataType, country);
             setData(graphData);
@@ -90,7 +93,7 @@ const CustomGraph = ({ country, dataType }) => {
           data={{
             datasets: [
               {
-                label: `# of ${dataType}`,
+                label: `# of ${dataType} in last 6 months`,
                 fill: true,
                 backgroundColor: `${dataTypeColors[dataType].hex}`,
                 borderColor: `${dataTypeColors[dataType].borderHex}`,

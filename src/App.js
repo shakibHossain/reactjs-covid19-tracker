@@ -19,7 +19,7 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [center, setCenter] = useState({ lat: 34.8076, lng: -40.4796 });
   const [zoom, setZoom] = useState(3);
-  const [dataType, setDataType] = useState("recovered");
+  const [dataType, setDataType] = useState("cases");
   const [country, setCountry] = useState("Worldwide");
 
   /**
@@ -45,7 +45,7 @@ function App() {
    */
   useEffect(() => {
     const getCountries = async () => {
-      await fetch("https://disease.sh/v3/covid-19/countries")
+      await fetch("https://disease.sh/v3/covid-19/countries?yesterday=true")
         .then((response) => response.json())
         .then((data) => {
           const arrayOfCountries = [];
@@ -78,14 +78,15 @@ function App() {
     if (countryValue !== null) {
       let url = "";
       if (countryValue === "Worldwide") {
-        url = "https://disease.sh/v3/covid-19/all";
+        url = "https://disease.sh/v3/covid-19/all?yesterday=true";
       } else {
-        url = `https://disease.sh/v3/covid-19/countries/${countryValue}`;
+        url = `https://disease.sh/v3/covid-19/countries/${countryValue}?yesterday=true`;
       }
 
       await fetch(url)
         .then((response) => response.json())
         .then((data) => {
+          console.log("infoboxdata", data);
           setInfoBoxData(data);
 
           if (countryValue === "Worldwide") {
