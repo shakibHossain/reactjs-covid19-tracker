@@ -19,7 +19,7 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [center, setCenter] = useState({ lat: 34.8076, lng: -40.4796 });
   const [zoom, setZoom] = useState(3);
-  const [dataType, setDataType] = useState("cases");
+  const [dataType, setDataType] = useState("recovered");
   const [country, setCountry] = useState("Worldwide");
 
   /**
@@ -109,7 +109,6 @@ function App() {
         </Grid>
         <Grid item xs={12} sm={6}>
           {/* Select dropdown */}
-          {/* <Paper className="app__paper"> */}
           <Autocomplete
             id="country-select"
             options={countries}
@@ -129,7 +128,6 @@ function App() {
               />
             )}
           />
-          {/* </Paper> */}
         </Grid>
         <Grid item xs={12} sm={4}>
           <InfoBox
@@ -160,6 +158,11 @@ function App() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className="app__paper">
+            <CustomGraph country={country} dataType={dataType} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={12}>
+          <Paper className="app__paper">
             <CustomMap
               center={center}
               zoom={zoom}
@@ -167,14 +170,6 @@ function App() {
               dataType={dataType}
             />
           </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className="app__paper">
-            <CustomGraph country={country} dataType={dataType} />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className="app__paper">News</Paper>
         </Grid>
       </Grid>
     </div>
