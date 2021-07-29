@@ -1,7 +1,6 @@
 import React from "react";
 import { Circle, Popup } from "react-leaflet";
 import numeral from "numeral";
-import { DatasetController } from "chart.js";
 
 /**
  * Stores colors and multipliers of
@@ -67,7 +66,6 @@ export const showDataOnMap = (data, dataType) => {
  * @returns - formatted chart data
  */
 export const buildGraphData = (historicalData, dataType, country) => {
-  console.log("historicalData", historicalData);
   let data = [];
   if (country === "Worldwide") {
     // Worldwide

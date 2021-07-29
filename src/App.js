@@ -19,7 +19,7 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [center, setCenter] = useState({ lat: 34.8076, lng: -40.4796 });
   const [zoom, setZoom] = useState(3);
-  const [dataType, setDataType] = useState("recovered");
+  const [dataType, setDataType] = useState("cases");
   const [country, setCountry] = useState("Worldwide");
 
   /**
@@ -72,6 +72,8 @@ function App() {
     onCountryChange("Worldwide");
   }, []);
 
+  console.log("dataType", dataType);
+
   const onCountryChange = async (countryValue) => {
     setCountry(countryValue);
 
@@ -86,7 +88,6 @@ function App() {
       await fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log("infoboxdata", data);
           setInfoBoxData(data);
 
           if (countryValue === "Worldwide") {
@@ -134,6 +135,7 @@ function App() {
             title="Cases"
             numbers={roundFriendly(infoBoxData.todayCases) + " New"}
             total={roundFriendly(infoBoxData.cases) + " Total"}
+            onClick={(e) => setDataType("cases")}
           />
         </Grid>
         <Grid item xs={12} sm={4}>
@@ -141,6 +143,7 @@ function App() {
             title="Recoveries"
             numbers={roundFriendly(infoBoxData.todayRecovered) + " New"}
             total={roundFriendly(infoBoxData.recovered) + " Total"}
+            onClick={(e) => setDataType("recovered")}
           />
         </Grid>
         <Grid item xs={12} sm={4}>
@@ -148,6 +151,7 @@ function App() {
             title="Deaths"
             numbers={roundFriendly(infoBoxData.todayDeaths) + " New"}
             total={roundFriendly(infoBoxData.deaths) + " Total"}
+            onClick={(e) => setDataType("deaths")}
           />
         </Grid>
 

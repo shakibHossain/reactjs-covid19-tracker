@@ -5,9 +5,9 @@ import Typography from "@material-ui/core/Typography";
 
 import "./info-box.styles.scss";
 
-const InfoBox = ({ title, numbers, total }) => {
+const InfoBox = ({ title, numbers, total, onClick }) => {
   return (
-    <Card className="root">
+    <Card className="root" onClick={onClick}>
       <CardContent>
         <Typography className="title" color="textSecondary" gutterBottom>
           {title}
