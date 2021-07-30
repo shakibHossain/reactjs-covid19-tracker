@@ -133,25 +133,31 @@ function App() {
         <Grid item xs={12} sm={4}>
           <InfoBox
             title="Cases"
+            active={dataType === "cases"}
             numbers={roundFriendly(infoBoxData.todayCases) + " New"}
             total={roundFriendly(infoBoxData.cases) + " Total"}
             onClick={(e) => setDataType("cases")}
+            dataType={dataType}
           />
         </Grid>
         <Grid item xs={12} sm={4}>
           <InfoBox
             title="Recoveries"
+            active={dataType === "recovered"}
             numbers={roundFriendly(infoBoxData.todayRecovered) + " New"}
             total={roundFriendly(infoBoxData.recovered) + " Total"}
             onClick={(e) => setDataType("recovered")}
+            dataType={dataType}
           />
         </Grid>
         <Grid item xs={12} sm={4}>
           <InfoBox
             title="Deaths"
+            active={dataType === "deaths"}
             numbers={roundFriendly(infoBoxData.todayDeaths) + " New"}
             total={roundFriendly(infoBoxData.deaths) + " Total"}
             onClick={(e) => setDataType("deaths")}
+            dataType={dataType}
           />
         </Grid>
 

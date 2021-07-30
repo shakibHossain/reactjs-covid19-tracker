@@ -1,5 +1,17 @@
-.root {
+.infoBox {
   min-width: 275;
+}
+
+.infoBox--cases {
+  border-top: 10px solid #cc1034;
+}
+
+.infoBox--recovered {
+  border-top: 10px solid #7dd71d;
+}
+
+.infoBox--deaths {
+  border-top: 10px solid #fb4443;
 }
 
 .title {

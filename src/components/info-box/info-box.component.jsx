@@ -5,9 +5,16 @@ import Typography from "@material-ui/core/Typography";
 
 import "./info-box.styles.scss";
 
-const InfoBox = ({ title, numbers, total, onClick }) => {
+const InfoBox = ({ title, numbers, total, onClick, active, dataType }) => {
   return (
-    <Card className="root" onClick={onClick}>
+    <Card
+      className={`infoBox ${
+        active && dataType === "cases" ? "infoBox--cases" : ""
+      } ${active && dataType === "recovered" ? "infoBox--recovered" : ""} ${
+        active && dataType === "deaths" ? "infoBox--deaths" : ""
+      }`}
+      onClick={onClick}
+    >
       <CardContent>
         <Typography className="title" color="textSecondary" gutterBottom>
           {title}
