@@ -9,21 +9,33 @@ import {
 
 import "./custom-table.styles.scss";
 
-const CustomTable = ({ newCases }) => {
+const CustomTable = ({ data, dataType }) => {
   return (
     <div className="customTable">
       <Table stickyHeader aria-label="enhanced table">
         <TableHead>
           <TableRow>
             <TableCell order={"asc"}>Country</TableCell>
-            <TableCell order={"desc"}>New Cases</TableCell>
+            <TableCell order={"desc"}>
+              {dataType === "cases"
+                ? "Cases"
+                : dataType === "recovered"
+                ? "Recovered"
+                : "Deaths"}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {newCases.map((item) => (
+          {data.map((item) => (
             <TableRow key={item.country}>
               <TableCell>{item.country}</TableCell>
-              <TableCell>{item.todayCases}</TableCell>
+              {dataType === "cases" ? (
+                <TableCell>{item.todayCases}</TableCell>
+              ) : dataType === "recovered" ? (
+                <TableCell>{item.todayRecovered}</TableCell>
+              ) : (
+                <TableCell>{item.todayDeaths}</TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>

@@ -54,14 +54,35 @@ function App() {
           arrayOfCountries.push("Worldwide");
           data.forEach((element) => {
             arrayOfCountries.push(element.country);
-            arrayofCountriesData.push({
-              country: element.country,
-              todayCases: element.todayCases,
-            });
-            // Sort in descending order
-            arrayofCountriesData.sort(
-              (a, b) => parseFloat(b.todayCases) - parseFloat(a.todayCases)
-            );
+            if (dataType === "cases") {
+              arrayofCountriesData.push({
+                country: element.country,
+                todayCases: element.todayCases,
+              });
+              // Sort in descending order
+              arrayofCountriesData.sort(
+                (a, b) => parseFloat(b.todayCases) - parseFloat(a.todayCases)
+              );
+            } else if (dataType === "recovered") {
+              arrayofCountriesData.push({
+                country: element.country,
+                todayRecovered: element.todayRecovered,
+              });
+              // Sort in descending order
+              arrayofCountriesData.sort(
+                (a, b) =>
+                  parseFloat(b.todayRecovered) - parseFloat(a.todayRecovered)
+              );
+            } else {
+              arrayofCountriesData.push({
+                country: element.country,
+                todayDeaths: element.todayDeaths,
+              });
+              // Sort in descending order
+              arrayofCountriesData.sort(
+                (a, b) => parseFloat(b.todayDeaths) - parseFloat(a.todayDeaths)
+              );
+            }
           });
           setCountries(arrayOfCountries);
           setCountriesData(arrayofCountriesData);
@@ -70,9 +91,7 @@ function App() {
     };
     getCountries();
     onCountryChange("Worldwide");
-  }, []);
-
-  console.log("dataType", dataType);
+  }, [dataType]);
 
   const onCountryChange = async (countryValue) => {
     setCountry(countryValue);
@@ -163,7 +182,7 @@ function App() {
 
         <Grid item xs={12} sm={6}>
           <Paper className="app__paper">
-            <CustomTable newCases={countriesData} />
+            <CustomTable data={countriesData} dataType={dataType} />
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
