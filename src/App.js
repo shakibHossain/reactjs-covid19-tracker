@@ -125,30 +125,36 @@ function App() {
         <Grid item xs={12} sm={6}>
           <Paper className="app__paper-header">
             <span>Covid 19 Tracker</span>
+            <br />
+            <span>***Displayed data are reported a day ago</span>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
           {/* Select dropdown */}
-          <Autocomplete
-            id="country-select"
-            disableClearable
-            options={countries}
-            autoHighlight
-            defaultValue={"Worldwide"}
-            renderOption={(option) => <React.Fragment>{option}</React.Fragment>}
-            onChange={(event, value) => onCountryChange(value)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Choose a country"
-                variant="outlined"
-                inputProps={{
-                  ...params.inputProps,
-                  autoComplete: "new-password", // disable autocomplete and autofill
-                }}
-              />
-            )}
-          />
+          <Paper className="app__paper">
+            <Autocomplete
+              id="country-select"
+              disableClearable
+              options={countries}
+              autoHighlight
+              defaultValue={"Worldwide"}
+              renderOption={(option) => (
+                <React.Fragment>{option}</React.Fragment>
+              )}
+              onChange={(event, value) => onCountryChange(value)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Choose a country"
+                  variant="outlined"
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: "new-password", // disable autocomplete and autofill
+                  }}
+                />
+              )}
+            />
+          </Paper>
         </Grid>
         <Grid item xs={12} sm={4}>
           <InfoBox
