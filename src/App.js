@@ -131,6 +131,7 @@ function App() {
           {/* Select dropdown */}
           <Autocomplete
             id="country-select"
+            disableClearable
             options={countries}
             autoHighlight
             defaultValue={"Worldwide"}
