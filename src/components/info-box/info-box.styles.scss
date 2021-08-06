@@ -1,5 +1,7 @@
 .infoBox {
   min-width: 275;
+  cursor: pointer;
+  border-top: 10px solid transparent;
 }
 
 .infoBox--cases {
@@ -17,6 +19,7 @@
 .title {
   size: 14;
 }
+
 .pos {
   margin-bottom: 12;
 }

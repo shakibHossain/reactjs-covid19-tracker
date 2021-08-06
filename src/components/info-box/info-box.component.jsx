@@ -16,7 +16,7 @@ const InfoBox = ({ title, numbers, total, onClick, active, dataType }) => {
       onClick={onClick}
     >
       <CardContent>
-        <Typography className="title" color="textSecondary" gutterBottom>
+        <Typography className="title" color="textSecondary">
           {title}
         </Typography>
         <Typography className="pos">{numbers}</Typography>
