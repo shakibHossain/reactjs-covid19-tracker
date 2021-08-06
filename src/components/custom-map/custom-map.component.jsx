@@ -20,7 +20,12 @@ const CustomMap = ({ center, zoom, countries, dataType }) => {
 
   return (
     <div className="map">
-      <MapContainer center={center} zoom={zoom} scrollWheelZoom={false}>
+      <MapContainer
+        center={center}
+        zoom={zoom}
+        scrollWheelZoom={false}
+        dataType={dataType}
+      >
         <ChangeView center={center} zoom={zoom} />
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

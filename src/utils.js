@@ -33,15 +33,19 @@ export const showDataOnMap = (data, dataType) => {
     <Circle
       key={i}
       center={{ lat: elem.countryInfo.lat, lng: elem.countryInfo.long }}
-      color={dataTypeColors[dataType].hex}
-      fillColor={dataTypeColors[dataType].hex}
+      pathOptions={{
+        color: dataTypeColors[dataType].hex,
+        fillColor: dataTypeColors[dataType].hex,
+      }}
+      fillOpacity={0.4}
       radius={Math.sqrt(elem[dataType]) * dataTypeColors[dataType].multiplier}
     >
       <Popup>
         <div className="country-container">
-          <div className="country-flag">
-            <img src={`${elem.countryInfo.flag}`} />
-          </div>
+          <div
+            className="country-flag"
+            style={{ backgroundImage: `url(${elem.countryInfo.flag})` }}
+          ></div>
           <div className="country-name">{elem.country}</div>
           <div className="country-confirmed">
             Cases: {numeral(elem.cases).format(0, 0)}
@@ -49,7 +53,7 @@ export const showDataOnMap = (data, dataType) => {
           <div className="country-recovered">
             Recovered: {numeral(elem.recovered).format(0, 0)}
           </div>
-          <div className="country-confirmed">
+          <div className="country-deaths">
             Deaths: {numeral(elem.deaths).format(0, 0)}
           </div>
         </div>
