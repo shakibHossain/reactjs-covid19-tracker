@@ -12,6 +12,10 @@ import "./custom-table.styles.scss";
 const CustomTable = ({ data, dataType }) => {
   return (
     <div className="customTable">
+      <span className="customTable__header">
+        New cases/recoveries/deaths by country
+      </span>
+      <br />
       <Table stickyHeader aria-label="enhanced table">
         <TableHead>
           <TableRow>
