@@ -126,7 +126,9 @@ function App() {
           <Paper className="app__paper-header">
             <span>Covid 19 Tracker</span>
             <br />
-            <span>***Displayed data are reported a day ago</span>
+            <span className="app__paper-note">
+              ***Displayed data are reported a day ago
+            </span>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
