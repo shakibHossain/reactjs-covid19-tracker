@@ -79,18 +79,21 @@ export const buildGraphData = (historicalData, dataType, country) => {
     data = historicalData.timeline[dataType];
   }
   if (data != null) {
+    console.log("dataLINEGRAPH", data);
     let chartData = [];
     let lastDataPoint;
 
     for (let date in data) {
-      if (lastDataPoint) {
-        let newDataPoint = {
-          x: date,
-          y: data[date] - lastDataPoint,
-        };
-        chartData.push(newDataPoint);
+      if (data[date] > 0) {
+        if (lastDataPoint) {
+          let newDataPoint = {
+            x: date,
+            y: data[date] - lastDataPoint,
+          };
+          chartData.push(newDataPoint);
+        }
+        lastDataPoint = data[date];
       }
-      lastDataPoint = data[date];
     }
     return chartData;
   }
