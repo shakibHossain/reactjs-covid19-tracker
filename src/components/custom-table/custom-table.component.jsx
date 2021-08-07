@@ -18,10 +18,10 @@ const CustomTable = ({ data, dataType }) => {
             <TableCell order={"asc"}>Country</TableCell>
             <TableCell order={"desc"}>
               {dataType === "cases"
-                ? "Cases"
+                ? "New Cases"
                 : dataType === "recovered"
-                ? "Recovered"
-                : "Deaths"}
+                ? "New Recoveries"
+                : "New Deaths"}
             </TableCell>
           </TableRow>
         </TableHead>
