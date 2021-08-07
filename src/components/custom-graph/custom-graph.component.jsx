@@ -8,7 +8,7 @@ import "./custom-graph.styles.scss";
 
 const options = {
   legend: {
-    display: true,
+    display: false,
   },
   elements: {
     point: {
