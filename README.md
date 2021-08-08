@@ -2,6 +2,10 @@
 
 This application was built using ReactJS, disease.sh API and Firebase.
 
+## Screencast
+
+![Alt Text](https://media.giphy.com/media/9zWQLyibyGR5g3GVVJ/giphy.gif)
+
 ## Demo
 
 Link to demo -
