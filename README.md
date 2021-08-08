@@ -4,7 +4,7 @@ This application was built using ReactJS, disease.sh API and Firebase.
 
 ## Screencast
 
-![Alt Text](https://media.giphy.com/media/9zWQLyibyGR5g3GVVJ/giphy.gif)
+![Alt Text](https://media.giphy.com/media/IpB5v5mY6vrLV6odgB/giphy.gif)
 
 ## Demo
 
